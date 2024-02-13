@@ -1,66 +1,40 @@
-## Foundry
+![Algem Logo](https://github.com/azhlbn/LendingAdapter/blob/main/logo.png?raw=true)
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+# Install
+Clone the source code, install dependencies.
 
-Foundry consists of:
+```git clone https://github.com/AlgemDeFi/algem-contracts```
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+```cd ~/algem-contracts```
 
-## Documentation
+```yarn install```
 
-https://book.getfoundry.sh/
+# Astar local chain
+Get latest astar-collator [binary](https://github.com/AstarNetwork/Astar/releases)
 
-## Usage
+To start dev node run
+```yarn chain```
+or
+```./astar-collator --dev```
 
-### Build
+### Check out helper tasks!
+Run ```npx hardhat %TASK_NAME%```
+* **convertAddr** convert evm address to polkadot
+* **giveMoney** give native tokens from //Alice dev account
+* **registerDapp** register contract in DAPPS_STAKING module
 
-```shell
-$ forge build
-```
+# Compile
+```yarn compile```
+or
+```npx hardhat compile```
 
-### Test
+# Deploy & setup
+```yarn deploy --network %NETWORK_NAME%```
+or
+```npx hardhat run scripts/init.ts --network %NETWORK_NAME%```
 
-```shell
-$ forge test
-```
 
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+# Test
+```yarn test```
+or
+```npx hardhat test --network astarLocal```
