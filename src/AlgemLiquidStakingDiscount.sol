@@ -26,17 +26,19 @@ contract AlgemLiquidStakingDiscount is ERC721PresetMinterPauserAutoIdUpgradeable
         _;
     }
 
-    /// @custom:oz-upgrades-unsafe-allow constructor
-    constructor() {
-        _disableInitializers();
-    }  
+    // /// @custom:oz-upgrades-unsafe-allow constructor
+    // constructor() {
+    //     _disableInitializers();
+    // }  
 
     function initialize(
         string memory name, 
         string memory symbol, 
-        string memory baseTokenURI
-    ) public override initializer {
-        super.initialize(name, symbol, baseTokenURI);
+        string memory baseTokenURI,
+        NFTDistributor nftDistrAddr
+    ) public initializer {
+        nftDistr = nftDistrAddr;
+        utilName = "ALSDToken";
 
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(MANAGER_ROLE, msg.sender);

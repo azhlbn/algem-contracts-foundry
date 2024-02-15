@@ -330,6 +330,8 @@ contract NFTDistributor is Initializable, AccessControlUpgradeable {
         if (Algem721(utils[utility].contractAddress).balanceOf(to) == 0) {
             UserInfo storage user = users[to];
 
+            emit Log4("addressTest", to);
+
             uint256 era = liquidStaking.currentEra();
 
             if (utils[utility].isUnique) {
@@ -353,6 +355,7 @@ contract NFTDistributor is Initializable, AccessControlUpgradeable {
             } else {
                 user.haveNft[utility] = true;
                 if (_addNft(user.userNfts, utility)) {
+                    
                     _updateUserFee(user, utils[utility].rewardFee, era);
                     uint256 addBalance = nAstr.balanceOf(to);
 
@@ -506,6 +509,8 @@ contract NFTDistributor is Initializable, AccessControlUpgradeable {
 
         Utility storage util_ = utils[utility];
 
+        emit Log5("lookHere", from, users[from].userNfts.length);
+
         uint256 utilAmountBefore = util_.totalAmount;
 
         if (to != address(0)) {
@@ -552,7 +557,9 @@ contract NFTDistributor is Initializable, AccessControlUpgradeable {
 
         return user.haveNft[utility] || user.haveUniqueNft[utility];
     }
-
+event Log4(string, address);
+event Log5(string, address, uint256);
+event Log6(string, uint256, uint256);
     /// @notice function for redistribution of balances and fees for the user when removing DNT tokens to user.
     /// @param utility => utility name.
     /// @param from => sender's address.
@@ -562,7 +569,7 @@ contract NFTDistributor is Initializable, AccessControlUpgradeable {
         UserInfo storage user = users[from];
 
         uint256 era = liquidStaking.currentEra();
-        uint8 fee;
+        uint8 fee;        
 
         if (user.haveUniqueNft[utility]) {
             fee = getUserFee(utility, from);
@@ -572,7 +579,7 @@ contract NFTDistributor is Initializable, AccessControlUpgradeable {
         } else if (user.userNfts.length > 0) {
             fee = user.defaultUserFee;
         } else return false;
-
+        emit Log6("You are here", totalEraData[era][0], amount);
         totalEraData[era][0] -= amount;
         totalEraData[era][1] -= amount * fee;
 

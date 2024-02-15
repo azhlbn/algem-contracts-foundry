@@ -10,8 +10,8 @@ import "../interfaces/INFTDistributor.sol";
 import "../interfaces/IAdaptersDistributor.sol";
 
 abstract contract LiquidStakingStorage {
-    DappsStaking public constant DAPPS_STAKING =
-        DappsStaking(0x0000000000000000000000000000000000005001);
+    DappsStaking public DAPPS_STAKING;
+    
     bytes32 public constant MANAGER = keccak256("MANAGER");
 
     /// @notice settings for distributor
@@ -130,6 +130,8 @@ abstract contract LiquidStakingStorage {
 
     bool public paused;
     bool public partiallyPaused;
+
+    
 
     event Staked(address indexed user, uint val);
     event StakedInUtility(address indexed user, string indexed utility, uint val);

@@ -23,9 +23,14 @@ contract LiquidStaking is AccessControlUpgradeable, LiquidStakingStorage, Proxy 
     function initialize(
         string memory _DNTname,
         string memory _utilName,
-        address _distrAddr
+        address _distrAddr,
+        address _dappsStaking,
+        address _adistr
     ) external initializer {
         require(_distrAddr.isContract(), "_distrAddr should be contract address");
+
+        DAPPS_STAKING = DappsStaking(_dappsStaking);
+        
         DNTname = _DNTname;
         utilName = _utilName;
 
@@ -36,6 +41,7 @@ contract LiquidStaking is AccessControlUpgradeable, LiquidStakingStorage, Proxy 
         withdrawBlock = DAPPS_STAKING.read_unbonding_period();
 
         distr = NDistributor(_distrAddr);
+        adaptersDistr = IAdaptersDistributor(_adistr);
 
         lastUpdated = era;
         lastStaked = era;

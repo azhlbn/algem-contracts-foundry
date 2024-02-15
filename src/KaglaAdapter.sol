@@ -396,10 +396,12 @@ contract KaglaAdapter is OwnableUpgradeable, ReentrancyGuardUpgradeable {
             pool.balances(0),
             pool.balances(1)
         );
+
         uint256 astrAmount = (_lpAmount * astrInPool) / totalLpSupply;
         uint256 nastrAmount = (_lpAmount * nastrInPool) / totalLpSupply;
         uint256[] memory amounts = new uint256[](2);
         (amounts[0], amounts[1]) = (astrAmount, nastrAmount);
+        
         return amounts;
     }
 
@@ -436,6 +438,7 @@ contract KaglaAdapter is OwnableUpgradeable, ReentrancyGuardUpgradeable {
     /// @param _user User's address
     function calc(address _user) public view returns (uint256 nShare) {
         uint256[] memory amounts = new uint256[](2);
+
         amounts = calculateRemoveLiquidity(lpBalances[_user] + gaugeBalances[_user]);
         nShare = amounts[1];
     }
@@ -456,6 +459,7 @@ contract KaglaAdapter is OwnableUpgradeable, ReentrancyGuardUpgradeable {
     /// @notice update user's nastr balance in AdaptersDistributor
     function _updateBalanceInAdaptersDistributor(address _user) private {
         uint256 nastrBalAfter = calc(_user);
+
         try adaptersDistributor.updateBalanceInAdapter(utilityName, _user, nastrBalAfter) {
             emit UpdateBalSuccess(_user, utilityName, nastrBalAfter);
         } catch (bytes memory reason) {

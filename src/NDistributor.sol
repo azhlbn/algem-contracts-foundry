@@ -172,6 +172,9 @@ contract NDistributor is Initializable, AccessControlUpgradeable {
         utilityDB.push(Utility("null", true));
         utilityId["null"] = 1;
         utilities.push("null");
+
+        dntDB.push(Dnt("nASTR", true));
+        dntId["nASTR"] = 1;
     }
 
     // -------------------------------------------------------------------------------------------------------
